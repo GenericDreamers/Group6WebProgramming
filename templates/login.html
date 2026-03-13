@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Đăng nhập</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_login.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- BÊN TRÁI ẢNH -->
+        <div class="left">
+            <img src="{{ url_for('static', filename='neu.jpg') }}" alt="NEU">
+        </div>
+
+        <!-- BÊN PHẢI LOGIN -->
+        <div class="right">
+            <div class="login-box">
+                <div class="logo">
+                    <img src="{{ url_for('static', filename='logo_neu.png') }}">
+                    <h2>ĐẠI HỌC KINH TẾ QUỐC DÂN</h2>
+                    <p>Cổng thông tin đào tạo</p>
+                </div>
+
+                <h1>ĐĂNG NHẬP</h1>
+                <form method="POST">
+                    <label>Tên đăng nhập</label>
+                    <input type="text" name="username" required>
+                    <label>Mật khẩu</label>
+                    <input type="password" name="password" required>
+                    <button type="submit">Đăng nhập</button>
+                </form>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

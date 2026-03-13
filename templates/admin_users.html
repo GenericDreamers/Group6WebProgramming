@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Users</title>
+</head>
+<body>
+    <h2>Người dùng & Khoa</h2>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Tên đăng nhập</th>
+            <th>Khoa</th>
+            <th>Quản trị Khoa</th>
+        </tr>
+        {% for u in users %}
+            <tr>
+            <td>{{ u.CanBoID }}</td>
+            <td>{{ u.TenDangNhap }}</td>
+            <td>{{ u.Khoa or 'Chưa gán' }}</td>
+            <td>
+                {{ 'Có' if u.LaAdminKhoa == 1 else 'Không' }}
+                <form method="post" style="display:inline;">
+                    <input type="hidden" name="canbo_id" value="{{ u.CanBoID }}">
+                    <input type="hidden" name="admin_status" value="{{ u.LaAdminKhoa }}">
+                    <button type="submit">{{ 'Hủy quyền' if u.LaAdminKhoa == 1 else 'Gán quyền' }}</button>
+                </form>
+            </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</body>
+</html>

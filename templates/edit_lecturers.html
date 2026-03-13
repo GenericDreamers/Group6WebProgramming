@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Lecturers</title>
+</head>
+<body>
+    <h2>Chỉnh sửa giảng viên cho môn: {{ subject_name }}</h2>
+    <form method="post">
+    {% for l in all_lecturers %}
+        <label>
+        <input type="checkbox" name="lecturer_ids" value="{{ l.ID }}"
+                {% if l.ID in current_ids %}checked{% endif %}>
+        {{ l.Ten }} (Khoa {{ l.Khoa }})
+        </label><br>
+    {% endfor %}
+    <button type="submit">Lưu thay đổi</button>
+    </form>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+</body>
+</html>
