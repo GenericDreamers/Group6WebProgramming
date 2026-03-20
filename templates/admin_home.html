@@ -1,27 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Home</title>
-</head>
-<body>
-    <h2>Quản trị hệ thống</h2>
-    <ul>
-    {% if session.get('is_super_admin') == True %}
-        <li><a href="{{ url_for('admin_users') }}">Danh sách người dùng</a></li>
-        <li><a href="{{ url_for('admin_subjects') }}">Quản lý môn học</a></li>
-    {% endif %}
-    {% if session.get('is_khoa_admin') == True %}
-        <li><a href="{{ url_for('khoa_subjects') }}">Quản lý môn học theo khoa</a></li>
-    {% endif %}
-    </ul>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}Trang quản trị - NEU{% endblock %}
+{% block content %}
+
+<div class="page-header">
+    <h1>Quản trị hệ thống</h1>
+</div>
+
+<div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap:20px;">
+
+{% if session.get('is_super_admin') %}
+<a href="{{ url_for('admin_users') }}" style="text-decoration:none;">
+    <div class="card" style="cursor:pointer; transition:transform 0.18s, box-shadow 0.18s;"
+         onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.13)'"
+         onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div class="card-header" style="background:#c3002f;">Quản lý người dùng</div>
+        <div class="card-body" style="color:#555; font-size:14px;">
+            Xem danh sách cán bộ, gán / hủy quyền Admin Khoa.
+        </div>
+    </div>
+</a>
+
+<a href="{{ url_for('admin_subjects') }}" style="text-decoration:none;">
+    <div class="card" style="cursor:pointer; transition:transform 0.18s, box-shadow 0.18s;"
+         onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.13)'"
+         onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div class="card-header" style="background:#0057a8;">Quản lý môn học</div>
+        <div class="card-body" style="color:#555; font-size:14px;">
+            Gán các học phần vào khoa tương ứng.
+        </div>
+    </div>
+</a>
+{% endif %}
+
+{% if session.get('is_khoa_admin') %}
+<a href="{{ url_for('khoa_subjects') }}" style="text-decoration:none;">
+    <div class="card" style="cursor:pointer; transition:transform 0.18s, box-shadow 0.18s;"
+         onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.13)'"
+         onmouseout="this.style.transform='';this.style.boxShadow=''">
+        <div class="card-header" style="background:#1a7a4a;">Môn học của khoa tôi</div>
+        <div class="card-body" style="color:#555; font-size:14px;">
+            Phân công giảng viên hiệu chỉnh đề cương từng học phần.
+        </div>
+    </div>
+</a>
+{% endif %}
+
+</div>
+{% endblock %}

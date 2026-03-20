@@ -1,26 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Khoa Subjects</title>
-</head>
-<body>
-    <h2>Môn học của khoa {{ khoa_name }}</h2>
-    <ul>
-    {% for s in subjects %}
-    <li>
-        {{ s.Ten }}
-        <a href="{{ url_for('edit_lecturers', khoa_id=khoa_id, subject_id=s.ID) }}">Sửa giảng viên</a>
-    </li>
-    {% endfor %}
-    </ul>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}Môn học của khoa - NEU{% endblock %}
+{% block content %}
+
+<div class="page-header">
+    <div>
+        <div class="breadcrumb"><a href="{{ url_for('admin_home') }}">Trang chủ</a> / Môn học khoa</div>
+        <h1>Học phần — {{ khoa_name }}</h1>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">Danh sách học phần</div>
+    <div class="card-body" style="padding:0;">
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Tên học phần</th>
+                        <th style="text-align:center;">Phân công giảng viên</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for s in subjects %}
+                <tr>
+                    <td style="color:#888;">{{ loop.index }}</td>
+                    <td><strong>{{ s.Ten }}</strong></td>
+                    <td style="text-align:center;">
+                        <a href="{{ url_for('edit_lecturers', khoa_id=khoa_id, subject_id=s.ID) }}"
+                           class="btn btn-outline btn-sm">Phân công</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

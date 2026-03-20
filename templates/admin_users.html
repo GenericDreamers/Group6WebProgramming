@@ -1,41 +1,60 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Users</title>
-</head>
-<body>
-    <h2>Người dùng & Khoa</h2>
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Tên đăng nhập</th>
-            <th>Khoa</th>
-            <th>Quản trị Khoa</th>
-        </tr>
-        {% for u in users %}
-            <tr>
-            <td>{{ u.CanBoID }}</td>
-            <td>{{ u.TenDangNhap }}</td>
-            <td>{{ u.Khoa or 'Chưa gán' }}</td>
-            <td>
-                {{ 'Có' if u.LaAdminKhoa == 1 else 'Không' }}
-                <form method="post" style="display:inline;">
-                    <input type="hidden" name="canbo_id" value="{{ u.CanBoID }}">
-                    <input type="hidden" name="admin_status" value="{{ u.LaAdminKhoa }}">
-                    <button type="submit">{{ 'Hủy quyền' if u.LaAdminKhoa == 1 else 'Gán quyền' }}</button>
-                </form>
-            </td>
-            </tr>
-        {% endfor %}
-    </table>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="alert alert-{{ category }}">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}Quản lý người dùng - NEU{% endblock %}
+{% block content %}
+
+<div class="page-header">
+    <div>
+        <div class="breadcrumb"><a href="{{ url_for('admin_home') }}">Trang chủ</a> / Quản lý người dùng</div>
+        <h1>Quản lý người dùng</h1>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">Danh sách cán bộ & quyền Admin Khoa</div>
+    <div class="card-body" style="padding:0;">
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Họ tên</th>
+                        <th>Tên đăng nhập</th>
+                        <th>Khoa</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for u in users %}
+                <tr>
+                    <td style="color:#888;">{{ loop.index }}</td>
+                    <td><strong>{{ u.TenCanBo }}</strong></td>
+                    <td style="font-family:monospace; color:#555;">{{ u.TenDangNhap }}</td>
+                    <td>{{ u.Khoa or '—' }}</td>
+                    <td>
+                        {% if u.LaAdminKhoa == 1 %}
+                            <span class="badge badge-success">✓ Admin Khoa</span>
+                        {% else %}
+                            <span class="badge badge-muted">Giảng viên</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <form method="post" style="display:inline;">
+                            <input type="hidden" name="canbo_id" value="{{ u.CanBoID }}">
+                            <input type="hidden" name="admin_status" value="{{ u.LaAdminKhoa }}">
+                            {% if u.LaAdminKhoa == 1 %}
+                                <button type="submit" class="btn btn-danger btn-sm">Hủy quyền</button>
+                            {% else %}
+                                <button type="submit" class="btn btn-success btn-sm">Gán quyền</button>
+                            {% endif %}
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

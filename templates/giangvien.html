@@ -1,45 +1,54 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Trang Giảng Viên</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style_giangvien.css') }}">
-</head>
+{% extends "base.html" %}
+{% block title %}Trang giảng viên - NEU{% endblock %}
+{% block content %}
 
-<body>
-
-<div class="header">
-    <h1>Hệ thống quản lý đề cương học phần</h1>
+<div class="page-header">
+    <div>
+        <h1>Xin chào, {{ canbo.Ten if canbo else 'Giảng viên' }} </h1>
+        <div class="breadcrumb">Danh sách học phần được phân công hiệu chỉnh</div>
+    </div>
 </div>
 
-<div class="container">
-
-    <h2>Các học phần được phân công</h2>
-
-    <table>
-
-        <tr>
-            <th>ID</th>
-            <th>Tên học phần</th>
-            <th>Thời gian</th>
-            <th>Thao tác</th>
-        </tr>
-
-        {% for hp in hocphan %}
-
-        <tr>
-            <td>{{ hp.ID }}</td>
-            <td>{{ hp.Ten }}</td>
-            <td>{{ hp.ThoiGian }}</td>
-            <td>
-                <button>Xem đề cương</button>
-            </td>
-        </tr>
-
-        {% endfor %}
-
-    </table>
-
+<div class="card">
+    <div class="card-header">Học phần được phân công</div>
+    <div class="card-body" style="padding:0;">
+        {% if hocphan %}
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Tên học phần</th>
+                        <th>Thời gian phân công</th>
+                        <th style="text-align:center;">Đề cương</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for hp in hocphan %}
+                <tr>
+                    <td style="color:#888;">{{ loop.index }}</td>
+                    <td><strong>{{ hp.Ten }}</strong></td>
+                    <td style="color:#666; font-size:13px;">{{ hp.ThoiGian }}</td>
+                    <td style="text-align:center;">
+                        {% if hp.DeCuong %}
+                            <a href="{{ hp.DeCuong }}" target="_blank" class="btn btn-primary btn-sm">
+                                📄 Xem đề cương
+                            </a>
+                        {% else %}
+                            <span style="color:#aaa; font-size:13px;">— Chưa có link —</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div style="padding:40px; text-align:center; color:#aaa; font-size:14px;">
+            Bạn chưa được phân công hiệu chỉnh học phần nào.
+        </div>
+        {% endif %}
+    </div>
 </div>
 
-</body>
-</html>
+{% endblock %}
