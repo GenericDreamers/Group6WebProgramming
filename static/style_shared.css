@@ -234,3 +234,27 @@ select:focus, input[type="text"]:focus, input[type="search"]:focus {
     white-space: nowrap;
 }
 .btn-logout:hover { background: rgba(255,255,255,0.28); }
+
+
+.navbar-menu {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin: 0 auto;
+}
+
+.nav-item {
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-dark);  
+    text-decoration: none;
+    transition: background .15s;
+    position: relative;
+}
+
+.nav-item:hover {
+    background-color: #00236b;
+    color: rgb(233, 232, 232);
+}
