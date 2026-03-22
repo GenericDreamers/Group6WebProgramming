@@ -11,9 +11,24 @@
 
 <nav class="navbar">
     <a class="navbar-brand" href="{{ url_for('login') }}">
-    <img src="{{ url_for('static', filename='logo_neu.png') }}" style="width:36px; height:36px; object-fit:contain;">
-    ĐẠI HỌC KINH TẾ QUỐC DÂN
-</a>
+        <img src="{{ url_for('static', filename='logo_neu.png') }}" style="width:36px; height:36px; object-fit:contain;">
+        ĐẠI HỌC KINH TẾ QUỐC DÂN
+    </a>
+    
+    <div class="navbar-menu">
+        {% if session.get('is_super_admin') and session.get('is_khoa_admin') %}
+            <a href="{{ url_for('admin_users') }}" class="nav-item">Quản lý người dùng</a>
+            <a href="{{ url_for('admin_subjects') }}" class="nav-item">Quản lý môn học</a>
+            <a href="{{ url_for('khoa_subjects') }}" class="nav-item">Môn học khoa</a>
+        {% elif session.get('is_super_admin') %}
+            <a href="{{ url_for('admin_users') }}" class="nav-item">Người dùng</a>
+            <a href="{{ url_for('admin_subjects') }}" class="nav-item">Quản lý môn học</a>
+        {% elif session.get('is_khoa_admin') %}
+            <a href="{{ url_for('khoa_subjects') }}" class="nav-item">Môn học khoa</a>
+        {% else %}
+            <a href="{{ url_for('giangvien') }}" class="nav-item">Học phần của tôi</a>
+        {% endif %}
+    </div>
     <div class="navbar-right">
         {% if session.get('idCanBo') %}
             {% set ten = session.get('ten_canbo', '') %}
