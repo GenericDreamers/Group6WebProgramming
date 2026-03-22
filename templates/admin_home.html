@@ -11,8 +11,8 @@
 {% if session.get('is_super_admin') %}
 <a href="{{ url_for('admin_users') }}" style="text-decoration:none;">
     <div class="card" style="cursor:pointer; transition:transform 0.18s, box-shadow 0.18s;"
-         onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.13)'"
-         onmouseout="this.style.transform='';this.style.boxShadow=''">
+         onmouseover="this.style.boxShadow='0 8px 24px rgba(0,0,0,0.13)'"
+         onmouseout="this.style.boxShadow=''">
         <div class="card-header" style="background:#c3002f;">Quản lý người dùng</div>
         <div class="card-body" style="color:#555; font-size:14px;">
             Xem danh sách cán bộ, gán / hủy quyền Admin Khoa.
@@ -22,8 +22,8 @@
 
 <a href="{{ url_for('admin_subjects') }}" style="text-decoration:none;">
     <div class="card" style="cursor:pointer; transition:transform 0.18s, box-shadow 0.18s;"
-         onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.13)'"
-         onmouseout="this.style.transform='';this.style.boxShadow=''">
+         onmouseover="this.style.boxShadow='0 8px 24px rgba(0,0,0,0.13)'"
+         onmouseout="this.style.boxShadow=''">
         <div class="card-header" style="background:#0057a8;">Quản lý môn học</div>
         <div class="card-body" style="color:#555; font-size:14px;">
             Gán các học phần vào khoa tương ứng.
@@ -35,8 +35,8 @@
 {% if session.get('is_khoa_admin') %}
 <a href="{{ url_for('khoa_subjects') }}" style="text-decoration:none;">
     <div class="card" style="cursor:pointer; transition:transform 0.18s, box-shadow 0.18s;"
-         onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,0.13)'"
-         onmouseout="this.style.transform='';this.style.boxShadow=''">
+         onmouseover="this.style.boxShadow='0 8px 24px rgba(0,0,0,0.13)'"
+         onmouseout="this.style.boxShadow=''">
         <div class="card-header" style="background:#1a7a4a;">Môn học của khoa tôi</div>
         <div class="card-body" style="color:#555; font-size:14px;">
             Phân công giảng viên hiệu chỉnh đề cương từng học phần.
